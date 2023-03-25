@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 function App() {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post('/query', { query });
       setResponse(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -26,10 +31,16 @@ function App() {
         />
         <button type="submit" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px' }}>Submit</button>
       </form>
-      {response && (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '75%', marginTop: '25%', border: '5px black', borderRadius: '5px', backgroundColor: 'white' }}>
-          <p style={{ textAlign: 'left', width: '100%' }}>{response.response}</p>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '75%', marginTop: '25%' }}>
+          <ReactLoading type="spin" color="gray" height={50} width={50} />
         </div>
+      ) : (
+        response && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '75%', marginTop: '15%', marginBottom: '25%', border: '5px black', borderRadius: '5px', backgroundColor: 'white' }}>
+            <p style={{ textAlign: 'left', width: '100%' }}>{response.response}</p>
+          </div>
+        )
       )}
     </div>
   );

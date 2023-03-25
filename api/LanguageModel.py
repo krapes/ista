@@ -10,7 +10,7 @@ import pickle
 
 logging.basicConfig(level=logging.INFO)
 
-os.environ["OPENAI_API_KEY"] = "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"
+#os.environ["OPENAI_API_KEY"] = "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"
 source_docs_directory = "../data/dev_data"
 fake_model_responses = {"How do I pay an exempt employee?":  "An exempt employee should be paid a predetermined salary regardless of the amount of hours they work. If an exempt employee is not paid the full salary in a given week, the employer may deduct the amount of hours not worked from the employee's salary. The employer cannot dock the employee's wages for partial day absences"}
 
