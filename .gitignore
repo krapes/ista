@@ -267,3 +267,4 @@ pip-selfcheck.json
 # End of https://mrkandreev.name/snippets/gitignore-generator/#react,Python,PyCharm,VirtualEnv
 
 data/
+api/.chroma

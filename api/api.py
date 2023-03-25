@@ -16,7 +16,7 @@ def get_current_time():
 @app.route('/query', methods=['POST'])
 def query():
     question = request.json.get('query')
-    return LanguageModel.trial_question(question)
+    return LanguageModel.ask_question(question)
 
 if __name__ == '__main__':
       app.run(port=5001)

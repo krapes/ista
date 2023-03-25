@@ -10,10 +10,11 @@ import pickle
 
 logging.basicConfig(level=logging.INFO)
 
-os.environ["OPENAI_API_KEY"] = "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"
-source_docs_directory = "../../../raw_store/thinkhr_dev"
+os.environ["OPENAI_API_KEY"] = "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"
+source_docs_directory = "../data/dev_data"
 fake_model_responses = {"How do I pay an exempt employee?":  "An exempt employee should be paid a predetermined salary regardless of the amount of hours they work. If an exempt employee is not paid the full salary in a given week, the employer may deduct the amount of hours not worked from the employee's salary. The employer cannot dock the employee's wages for partial day absences"}
 
+model = None
 def loadfiles()-> DirectoryLoader:
     logging.info("Loading Docs...")
     loader = DirectoryLoader(source_docs_directory, glob="**/*.txt")
@@ -52,6 +53,13 @@ def trial_question(question):
         time.sleep(1)
     response = {"query": question, "response": fake_model_responses.get(question, question)}
     return response
+
+def ask_question(question):
+    global model
+    if model is None:
+        model = setup()
+    response = model({"query": question})
+    return {"query": response['query'], "response": response['result']}
 def interactive_questions():
     question = input("Please enter your question (or type quit to exit): \n\n")
     while question != "quit":
