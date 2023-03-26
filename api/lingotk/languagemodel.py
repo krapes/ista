@@ -9,7 +9,7 @@ import time
 import pickle
 
 logging.basicConfig(level=logging.INFO)
-print(os.getcwd())
+
 SOURCE_DOCS_DIRECTORY = "../data/dev_data"
 FAKE_MODEL_RESPONSES = {"How do I pay an exempt employee?":  "An exempt employee should be paid a predetermined salary regardless of the amount of hours they work. If an exempt employee is not paid the full salary in a given week, the employer may deduct the amount of hours not worked from the employee's salary. The employer cannot dock the employee's wages for partial day absences"}
 
@@ -46,14 +46,8 @@ class LanguageModel:
         return self.model
 
     def trial_question(self, question: str) -> dict[str, str]:
-        '''
-        model = self.setup()
-        question = "How do I pay and exempt employee?"
-        response = self.model({"query": question})
-        response = {"query": response['query'], "response": response['result']}
-        '''
-        for i in range(0, 1, 1):
-            print(f"sleeping {i}")
+        for i in range(0, 35, 1):
+            logging.info(f"sleeping {i}")
             time.sleep(1)
         response = {"query": question, "response": FAKE_MODEL_RESPONSES.get(question, question)}
         return response

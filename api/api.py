@@ -1,9 +1,5 @@
 import time
 from flask import Flask, request
-# from api.LanguageModel import ask_question, setup
-import sys, os
-from pathlib import Path
-
 from lingotk import languagemodel as lm
 
 app = Flask(__name__)

@@ -1,17 +1,22 @@
-FROM python:3.9
+FROM python:3.10
 
 
 WORKDIR /app
 
 COPY data/dev_data data/dev_data/
-COPY api/requirements.txt  api/.flaskenv api/
-COPY api/api.py api/LanguageModel.py api/__init__.py api/
-
+# putting the requirements install at the top so that it is most likely to be cached
+COPY api/requirements.txt  api/
 RUN pip install -r ./api/requirements.txt
 RUN pip install gunicorn
+
+COPY api/.flaskenv api/
+COPY api/lingotk api/lingotk/
+COPY api/api.py api/__init__.py api/
+
 ENV FLASK_ENV production
 ENV OPENAI_API_KEY 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
 
 EXPOSE 5001
-CMD ["gunicorn", "-b", ":5001", "api.api:app", "--timeout 0"]
+WORKDIR /app/api
+CMD ["gunicorn", "--timeout", "1000", "-b", ":5001", "api:app"]
 #CMD ["bash"]
