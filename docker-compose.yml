@@ -1,11 +1,13 @@
 services:
   api:
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile.api
     image: react-flask-app-api
-    ports:
-      - "5001:5001"
+    # ports:
+      # - "5001:5001"
   client:
     build:
       context: .
