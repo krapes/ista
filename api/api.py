@@ -6,17 +6,17 @@ app = Flask(__name__)
 active_model = None
 
 
-@app.route('/')
+@app.route('/api')
 def home():
     return {'message': 'SUCCESS'}
 
 
-@app.route('/time')
+@app.route('/api/time')
 def get_current_time():
     return {'time': time.time()}
 
 
-@app.route('/query', methods=['POST'])
+@app.route('/api/query', methods=['POST'])
 def query():
     global active_model
     question = request.json.get('query', '')

@@ -10,7 +10,7 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setResponse({"response": "I'm sorry, it looks like there's been a problem"})
+    setResponse({"response": "!!!!I'm sorry, it looks like there's been a problem"})
     try {
       const { data } = await axios.post('/api/query', { query });
       setResponse(data);

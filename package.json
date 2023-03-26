@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "launch-compose": "docker compose build && docker compose up"
+    "docker-clear": "docker system prune --volumes",
+    "launch-compose": "docker-compose up --build --force-recreate"
   },
   "eslintConfig": {
     "extends": [
