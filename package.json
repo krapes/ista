@@ -16,10 +16,12 @@
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && flask run --no-debugger --port=5001",
-    "start-container": "docker build -f Dockerfile.api -t react-flask-app-api .  && docker run --rm -p 5001:5001 react-flask-app-api",
+    "start-api-container": "docker build -f Dockerfile.api -t react-flask-app-api .  && docker run --rm -p 5001:5001 react-flask-app-api",
+    "build-frontend-container": "docker build -f Dockerfile.client -t react-flask-app-client .",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "launch-compose": "docker compose build && docker compose up"
   },
   "eslintConfig": {
     "extends": [

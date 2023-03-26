@@ -12,7 +12,7 @@ function App() {
     setLoading(true);
     setResponse({"response": "I'm sorry, it looks like there's been a problem"})
     try {
-      const { data } = await axios.post('/query', { query });
+      const { data } = await axios.post('/api/query', { query });
       setResponse(data);
     } catch (error) {
       console.error(error);
