@@ -15,6 +15,14 @@ def home():
 def get_current_time():
     return {'time': time.time()}
 
+@app.route('/health')
+def health():
+    return '', 200
+
+@app.route('/ready')
+def ready():
+    return '', 200
+
 
 @app.route('/api/query', methods=['POST'])
 def query():

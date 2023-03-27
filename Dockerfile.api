@@ -14,6 +14,8 @@ COPY api/lingotk api/lingotk/
 COPY api/api.py api/__init__.py api/
 
 ENV FLASK_ENV production
+ARG OPENAI_API_KEY
+ENV OPENAI_API_KEY=$OPENAI_API_KEY
 
 EXPOSE 5001
 WORKDIR /app/api

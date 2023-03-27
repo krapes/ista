@@ -16,13 +16,15 @@
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && flask run --no-debugger --port=5001",
-    "start-api-container": "docker build -f Dockerfile.api -t react-flask-app-api .  && docker run --rm -p 5001:5001 react-flask-app-api",
+    "start-api-container": "docker build -f Dockerfile.api -t react-flask-app-api  .  && docker run --rm -p 5001:5001 react-flask-app-api",
     "build-frontend-container": "docker build -f Dockerfile.client -t react-flask-app-client .",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "docker-clear": "docker system prune --volumes",
-    "launch-compose": "docker-compose up --build --force-recreate"
+    "launch-compose": "docker-compose up --build --force-recreate",
+    "IAM-permissions": "gcloud projects add-iam-policy-binding ${PROJECT_NUMBER} \\\n    --member=serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com \\\n    --role=roles/container.developer",
+    "push-images-gcp": "docker build -f Dockerfile.client -t gcr.io/$PROJECT_ID/react-flask-app-client . && docker push gcr.io/$PROJECT_ID/react-flask-app-client && docker build -f Dockerfile.api -t gcr.io/$PROJECT_ID/react-flask-app-api . && docker push gcr.io/$PROJECT_ID/react-flask-app-api"
   },
   "eslintConfig": {
     "extends": [

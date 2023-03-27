@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-client-metadata-name-3
+  labels:
+    app: react-client-label-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-client-selector-matchlabels-app
+  template:
+    metadata:
+      labels:
+        app: react-client-selector-matchlabels-app
+    spec:
+      containers:
+      - name: react-client-container-name
+        image: gcr.io/animated-verve-240319/react-flask-app-client
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80
+---
+# [START gke_boa_kubernetes_manifests_react-client_service_react-client]
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-client
+spec:
+  type: LoadBalancer
+  selector:
+    app: react-client-selector-matchlabels-app
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+# [END gke_boa_kubernetes_manifests_react-client_service_react-client]
+
+---
+# [START gke_boa_kubernetes_manifests_react-client_service_react-client]
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+spec:
+  type: LoadBalancer
+  selector:
+    app: api
+  ports:
+  - name: http
+    port: 5001
+    targetPort: 5001
+# [END gke_boa_kubernetes_manifests_react-client_service_react-client]
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: gcr.io/animated-verve-240319/react-flask-app-api:latest
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 5001

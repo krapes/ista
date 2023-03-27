@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-flask-app-client
+spec:
+  type: LoadBalancer
+  selector:
+    app: react
+    tier: react-flask-app-client
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-flask-app-api
+spec:
+  type: ClusterIP
+  selector:
+    component: react-flask-app-api
+  ports:
+    - port: 5001
+      targetPort: 5001
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-flask-app-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: react-flask-app-api
+  template:
+    metadata:
+      labels:
+        component: react-flask-app-api
+    spec:
+      containers:
+        - name: react-flask-app-api
+          image: gcr.io/animated-verve-240319/react-flask-app-api:latest
+          imagePullPolicy: "Always"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5001
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5001
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          ports:
+            - containerPort: 5001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-flask-app-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-flask-app-client
+      tier: ui
+  template:
+    metadata:
+      labels:
+        app: react-flask-app-client
+        tier: ui
+    spec:
+      containers:
+        - name: react-flask-app-client
+          image: gcr.io/animated-verve-240319/react-flask-app-client:latest
+          imagePullPolicy: "Always"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          ports:
+            - containerPort: 3000
