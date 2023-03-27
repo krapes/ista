@@ -1,3 +1,4 @@
+# Deployment of the React-nginx frontend pods
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +22,7 @@ spec:
         ports:
         - containerPort: 80
 ---
-# [START gke_boa_kubernetes_manifests_react-client_service_react-client]
+# Service Loadbalancer to create a stable IP endpoint for the frontend
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,10 +35,11 @@ spec:
   - name: http
     port: 80
     targetPort: 80
-# [END gke_boa_kubernetes_manifests_react-client_service_react-client]
+
 
 ---
-# [START gke_boa_kubernetes_manifests_react-client_service_react-client]
+# Service Load balancer to create a stable endpoint for the backend APIs
+#  (to be used in troubleshooting)
 apiVersion: v1
 kind: Service
 metadata:
@@ -50,9 +52,10 @@ spec:
   - name: http
     port: 5001
     targetPort: 5001
-# [END gke_boa_kubernetes_manifests_react-client_service_react-client]
+
 
 ---
+# Deployment of the flask app backend service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
