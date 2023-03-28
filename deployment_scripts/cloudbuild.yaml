@@ -2,6 +2,6 @@ steps:
 - name: "gcr.io/cloud-builders/gke-deploy:stable"
   args:
   - run
-  - --filename=kubernetes_manifests/ngnix_deployment.yaml
+  - --filename=kubernetes_manifests/react_flask_app_deployment.yaml
   - --location=us-central1-c
   - --cluster=ista-cluster-1
