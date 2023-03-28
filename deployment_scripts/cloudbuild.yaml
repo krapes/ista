@@ -4,4 +4,4 @@ steps:
   - run
   - --filename=kubernetes_manifests/react_flask_app_deployment.yaml
   - --location=us-central1-c
-  - --cluster=ista-cluster-1
+  - --cluster=subject-guru-cluster-1
