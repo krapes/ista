@@ -4,9 +4,10 @@ import ReactLoading from 'react-loading';
 
 function App() {
   const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [response, setResponse] = useState({"response": "Welcome to Subject Guru. Please ask your first question."});
   const [loading, setLoading] = useState(false);
 
+  //setResponse()
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
