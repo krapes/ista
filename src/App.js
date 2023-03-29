@@ -27,6 +27,7 @@ function App() {
   const handleFileUpload = async (event) => {
     event.preventDefault();
     setUploadStatus({ message: 'Upload...' });
+    setLoading(true);
     const files = event.target.files;
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -42,6 +43,16 @@ function App() {
       setUploadStatus({ message: 'Upload Complete' });
     } catch (error) {
       console.error(error);
+    }
+
+    setQuery("What are you an expert in?")
+    try {
+      const { data } = await axios.post('/api/query', { query });
+      setResponse(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
