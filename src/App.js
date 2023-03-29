@@ -4,14 +4,13 @@ import ReactLoading from 'react-loading';
 
 function App() {
   const [query, setQuery] = useState('');
-  const [response, setResponse] = useState({"response": "Welcome to Subject Guru. Please ask your first question."});
+  const [response, setResponse] = useState({ response: 'Welcome to Subject Guru. Please ask your first question.' });
   const [loading, setLoading] = useState(false);
 
-  //setResponse()
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setResponse({"response": "!!!!I'm sorry, it looks like there's been a problem"})
+    setResponse({ response: "!!!!I'm sorry, it looks like there's been a problem" });
     try {
       const { data } = await axios.post('/api/query', { query });
       setResponse(data);
@@ -19,6 +18,24 @@ function App() {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileUpload = async (event) => {
+    event.preventDefault();
+    const files = event.target.files;
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i]);
+    }
+    try {
+      await axios.post('/api/fileupload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -31,7 +48,11 @@ function App() {
           onChange={(event) => setQuery(event.target.value)}
           style={{ width: '75%', padding: '10px', border: '1px solid lightgray', borderRadius: '5px' }}
         />
-        <button type="submit" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px' }}>Submit</button>
+        <button type="submit" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px' }}>Submit</button>
+        <label htmlFor="file-upload" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px', cursor: 'pointer' }}>
+          Upload
+        </label>
+        <input type="file" id="file-upload" onChange={handleFileUpload} multiple style={{ display: 'none' }} />
       </form>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '75%', marginTop: '25%' }}>
