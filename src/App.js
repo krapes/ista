@@ -6,6 +6,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState({ response: 'Welcome to Subject Guru. Please ask your first question.' });
   const [loading, setLoading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState({ message: 'Upload' });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,6 +35,7 @@ function App() {
           'Content-Type': 'multipart/form-data',
         },
       });
+      setUploadStatus({ message: 'Upload' });
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +52,7 @@ function App() {
         />
         <button type="submit" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px' }}>Submit</button>
         <label htmlFor="file-upload" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px', cursor: 'pointer' }}>
-          Upload
+          {uploadStatus.message}
         </label>
         <input type="file" id="file-upload" onChange={handleFileUpload} multiple style={{ display: 'none' }} />
       </form>

@@ -5,6 +5,7 @@ argilla==1.5.0
 async-timeout==4.0.2
 attrs==22.2.0
 backoff==2.2.1
+cachetools==5.3.0
 certifi==2022.12.7
 charset-normalizer==3.1.0
 chromadb==0.3.11
@@ -20,7 +21,15 @@ fastapi==0.95.0
 filelock==3.10.4
 Flask==2.2.3
 frozenlist==1.3.3
+google-api-core==2.11.0
+google-auth==2.17.0
+google-cloud-core==2.3.2
+google-cloud-storage==2.7.0
+google-crc32c==1.5.0
+google-resumable-media==2.4.1
+googleapis-common-protos==1.59.0
 greenlet==2.0.2
+gunicorn==20.1.0
 h11==0.14.0
 hnswlib==0.7.0
 httpcore==0.16.3
@@ -62,6 +71,9 @@ openpyxl==3.1.2
 packaging==23.0
 pandas==1.5.3
 Pillow==9.4.0
+protobuf==4.22.1
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
 pydantic==1.10.7
 Pygments==2.14.0
 pypandoc==1.11
@@ -76,6 +88,7 @@ regex==2023.3.23
 requests==2.28.2
 rfc3986==1.5.0
 rich==13.0.1
+rsa==4.9
 scikit-learn==1.2.2
 scipy==1.10.1
 sentence-transformers==2.2.2
