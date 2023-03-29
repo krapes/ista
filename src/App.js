@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 
+
 function App() {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState({ response: 'Welcome to Subject Guru. Please ask your first question.' });
   const [loading, setLoading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState({ message: 'Upload' });
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,18 +26,20 @@ function App() {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
+    setUploadStatus({ message: 'Upload...' });
     const files = event.target.files;
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append('file', files[i]);
     }
+
     try {
-      await axios.post('/api/fileupload', formData, {
+      await axios.post('/api/fileupload',  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setUploadStatus({ message: 'Upload' });
+      setUploadStatus({ message: 'Upload Complete' });
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +55,7 @@ function App() {
           style={{ width: '75%', padding: '10px', border: '1px solid lightgray', borderRadius: '5px' }}
         />
         <button type="submit" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px' }}>Submit</button>
-        <label htmlFor="file-upload" style={{ backgroundColor: 'lightgray', color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px', cursor: 'pointer' }}>
+        <label htmlFor="file-upload" style={{ backgroundColor: 'lightgray',  color: 'black', padding: '10px', borderRadius: '5px', marginLeft: '10px', cursor: 'pointer' }}>
           {uploadStatus.message}
         </label>
         <input type="file" id="file-upload" onChange={handleFileUpload} multiple style={{ display: 'none' }} />
