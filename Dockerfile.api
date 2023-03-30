@@ -6,8 +6,10 @@ WORKDIR /app
 COPY data/dev_data data/dev_data/
 # putting the requirements install at the top so that it is most likely to be cached
 COPY api/requirements.txt  api/
+RUN pip install --default-timeout=100 future
 RUN pip install -r ./api/requirements.txt
 RUN pip install gunicorn
+
 
 COPY api/.flaskenv api/
 COPY api/lingotk api/lingotk/
@@ -16,8 +18,14 @@ COPY api/api.py api/__init__.py api/
 ENV FLASK_ENV production
 ARG OPENAI_API_KEY
 ENV OPENAI_API_KEY=$OPENAI_API_KEY
+ARG PROJECT_ID
+ENV PROJECT_ID=animated-verve-240319
 
 EXPOSE 5001
 WORKDIR /app/api
+COPY animated-verve-240319-55f91a380ad6.json animated-verve-240319-55f91a380ad6.json
+RUN ls
+ENV GOOGLE_APPLICATION_CREDENTIALS=animated-verve-240319-55f91a380ad6.json
+
 CMD ["gunicorn", "--timeout", "1000", "-b", ":5001", "api:app"]
 #CMD ["bash"]

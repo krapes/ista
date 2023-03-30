@@ -1,17 +1,19 @@
 services:
   api:
-    env_file:
-      - .env
+    # TODO fix env variables for compose yaml
+    # TODO make project id a variable
+   # env_file:
+      #- .env
     build:
       context: .
       dockerfile: Dockerfile.api
-    image: react-flask-app-api
+    image: gcr.io/animated-verve-240319/react-flask-app-api
     # ports:
       # - "5001:5001"
   client:
     build:
       context: .
       dockerfile: Dockerfile.client
-    image: react-flask-app-client
+    image: gcr.io/animated-verve-240319/react-flask-app-client
     ports:
       - "3000:80"

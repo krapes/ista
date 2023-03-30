@@ -11,6 +11,8 @@ app = Flask(__name__)
 gcs = storage.Client()
 #CLOUD_STORAGE_BUCKET = os.environ["CLOUD_STORAGE_BUCKET"]
 CLOUD_STORAGE_BUCKET = "subjectguru"
+PROJECT_ID = "animated-verve-240319"
+os.environ['PROJECT_ID'] = PROJECT_ID
 
 active_model = None
 
@@ -56,7 +58,7 @@ def fileupload():
     bucket = gcs.get_bucket(CLOUD_STORAGE_BUCKET)
     # Create a new blob and upload the file's content.
     for file in uploaded_files:
-        blob = bucket.blob(os.path.join(timestamp, file.filename))
+        blob = bucket.blob(f"{timestamp}-{file.filename}")
         blob.upload_from_string(
             file.read(), content_type=file.content_type
         )

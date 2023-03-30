@@ -45,15 +45,7 @@ function App() {
       console.error(error);
     }
 
-    setQuery("What are you an expert in?")
-    try {
-      const { data } = await axios.post('/api/query', { query });
-      setResponse(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+  setLoading(false);
   };
 
   return (

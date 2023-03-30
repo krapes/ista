@@ -12,6 +12,8 @@ logging.basicConfig(level=logging.INFO)
 
 #SOURCE_DOCS_DIRECTORY = "../data/dev_data"
 #FAKE_MODEL_RESPONSES = {"How do I pay an exempt employee?":  "An exempt employee should be paid a predetermined salary regardless of the amount of hours they work. If an exempt employee is not paid the full salary in a given week, the employer may deduct the amount of hours not worked from the employee's salary. The employer cannot dock the employee's wages for partial day absences"}
+PROJECT_ID = "animated-verve-240319"
+os.environ['PROJECT_ID'] = PROJECT_ID
 
 class LanguageModel:
 
@@ -30,8 +32,8 @@ class LanguageModel:
         return source_docs
 
     def load_files_gcs(self):
-        logging.info(f"Loading Docs from {self.source_docs_directory}...{os.environ['PROJECT_ID']}")
-        loader = GCSDirectoryLoader(project_name=os.environ['PROJECT_ID'],
+        logging.info(f"Loading Docs from {self.source_docs_directory}")
+        loader = GCSDirectoryLoader(project_name=PROJECT_ID,
                                     bucket=self.document_bucket,
                                     prefix=self.source_docs_directory)
         source_docs = loader.load()
