@@ -6,4 +6,4 @@ docker push gcr.io/$PROJECT_ID/react-flask-app-client
 docker build -f Dockerfile.api -t gcr.io/$PROJECT_ID/react-flask-app-api \
          --build-arg OPENAI_API_KEY=$OPENAI_API_KEY .
 docker push gcr.io/$PROJECT_ID/react-flask-app-api
-gcloud builds submit  --config scripts/cloudbuild.yaml
+gcloud builds submit  --config deployment_scripts/cloudbuild.yaml

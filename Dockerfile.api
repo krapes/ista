@@ -3,7 +3,7 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY data/dev_data data/dev_data/
+# COPY data/dev_data data/dev_data/
 # putting the requirements install at the top so that it is most likely to be cached
 COPY api/requirements.txt  api/
 RUN pip install --default-timeout=100 future
